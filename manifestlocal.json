@@ -4,7 +4,7 @@
     "background_color": "#561c1c",
     "short_name": "Projects2024",
     "id": "icsi301",
-    "start_url": "https://u2men.github.io/ICSI301_WebApp/index.html",
+    "start_url": "http://127.0.0.1:5500/index.html",
     "icons": [
         {
             "src": "./icons/windows11/SmallTile.scale-100.png",
@@ -463,7 +463,7 @@
     "shortcuts": [
         {
             "name": "Order",
-            "url": "https://u2men.github.io/ICSI301_WebApp/order.html",
+            "url": "http://127.0.0.1:5500/order.html",
             "description": "Your orders",
             "icons": [{
                 "src": "icons/order.webp",
