@@ -498,7 +498,7 @@
         },
         {
             "protocol": "web+order",
-            "url": "https://u2men.github.io/ICSI301_WebApp/order.html?token=%s"
+            "url": "./order.html?token=%s"
         }
     ]
 }
