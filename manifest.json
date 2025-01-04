@@ -494,11 +494,11 @@
     "protocol_handlers": [
         {
             "protocol": "web+project",
-            "url": "/order.html?token=%s"
+            "url": "./order.html?token=%s"
         },
         {
             "protocol": "web+order",
-            "url": "/order.html?token=%s"
+            "url": "https://u2men.github.io/ICSI301_WebApp/order.html?token=%s"
         }
     ]
 }
