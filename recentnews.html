@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recent news</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        /* #region RecentNews styles */
+        .recentNews {
+            display: block;
+            margin: 5px;
+            padding: 5px;
+            width: 400px;
+
+            background-color: #eee;
+            opacity: 1;
+
+            animation-name: fadeInAnimation;
+            animation-duration: 3s;
+        }
+
+        .recentNews-thumb {
+            display: inline-block;
+            height: 80px;
+        }
+
+        .recentNews-text {
+            display: inline-block;
+            height: 70px;
+            width: 300px;
+            margin: 0;
+            vertical-align: top;
+        }
+
+        .recentNews-header {
+            font: normal normal 12px Verdana, sans-serif;
+        }
+
+        .recentNews-stat {
+            text-align: right;
+            color: gray;
+            font-style: italic;
+        }
+
+        .recentNews-shareCount {
+            display: inline;
+        }
+
+        .recentNews-pubdate {
+            display: inline;
+        }
+
+        @keyframes fadeInAnimation {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* #endregion  */
+    </style>
+    <script type="module">
+
+        class RecentNewsItem {
+
+                //constructor
+                constructor(news) {
+                    this.id = news.id;
+                    this.title = news.title;
+                    this.thumb = news.thumb;
+                    this.thumbAlt = news.alt;
+                    this.publishedDate = news.publishedDate;
+                    this.shareCount = news.shareCount;
+                }
+
+                //build and return html
+                Render() {
+                    return `<article class="recentNews" id="recentnews_${this.id}">
+                    <img src="${this.thumb} " class="recentNews-thumb"/>
+                    <div class="recentNews-text">
+                        <h1 class="recentNews-header" contenteditable="true" id="recentnews_title_${this.id}">${this.title} </h1>
+                        <div class="recentNews-stat">
+                            <div class="recentNews-pubdate"> ${this.publishedDate} </div>
+                            <div class="recentNews-shareCount"> ${this.shareCount} </div>
+                            <a href="#">More...</a>
+                        <div>
+                    </div>
+                </article>`
+                }
+
+                /* reflect changes to the [property] of the object
+                For example:  <h1 id="recentnews_title_1>Medee...</h1> => recentNewsItem.title="Medee..."
+                */
+                Bind(eventType, element, property) {
+
+                    gebi(`${element}_${this.id}`).addEventListener(eventType, (event) => {
+
+                        //this[property] used to access the object's property.
+                        //for example this["title"]
+                        //event.target gets <h1> element in our example
+                        this[property] = event.target.innerHTML;
+                        recentNews._hasChanged = true;
+                        console.log(`event:${event} this=${JSON.stringify(recentNews)}`);
+                    })
+                    return this;
+                }
+            }
+
+            export default class RecentNews {
+
+                constructor(recentNewsUrl, dateFilter) {
+                    this._recentNewsList = [];
+                    this._lastUpdated = Date.now();
+                    this._hasChanged = false;
+
+                    this._recentNewsUrl = recentNewsUrl;
+                    this.dateFilter = dateFilter;
+                }
+                //
+                Upload() {
+                    if (this._hasChanged) {
+                        fetch(this._recentNewsUrl,
+                            {
+                                method: 'PUT',
+                                headers: {
+                                    'Content-Type': 'application/json;charset=utf-8',
+                                    'versioning': false
+                                },
+                                body: JSON.stringify(this._recentNewsList)
+                            })
+                            .then(response => { console.log(response.status); })
+                            .catch(err => { console.log(err) });
+
+                        this._hasChanged = false;
+                    }
+                }
+
+                //download then filter() then map() then reduce() 
+                Download(targetElement) {
+
+                        //download data
+                        fetch(`${this._recentNewsUrl}/latest`)
+                        .then(
+                            data => {
+                                //converting string into json object
+                                data
+                                .json()
+                                .then(jsonObj => {
+                                    let content = "";
+
+                                    //filter     
+                                    const filteredArray = jsonObj.record.filter(   
+                                    x =>Date.parse(x.publishedDate) > this.dateFilter
+                                    
+                            )
+
+                                    //render
+                                    if (filteredArray.length > 0) {
+                                        // filteredArray.forEach(newNewsItem => { this._recentNewsList.push((new RecentNewsItem(newNewsItem))) });
+
+                                        //build HTML from json
+                                        const htmlFormatted = filteredArray
+                                            .map(newNews => {
+                                                const _newNews = new RecentNewsItem(newNews);
+                                                return _newNews.Render();
+                                            })
+                                            .reduce((prevVal, curVal) => prevVal + curVal, "")
+                                        //map hiih tovch helber ni
+                                        //const mappedArray=filteredArray.map(newNews => (new RecentNewsItem(newNews)).Render());
+
+                                        //insert HTML into document
+                                        gebi(targetElement).insertAdjacentHTML("afterbegin", htmlFormatted);
+
+                                        // this._recentNewsList.forEach(newsItem => newsItem.Bind("input", "recentnews_title", "title"));
+                                    }
+
+                                    // gebi("main").insertAdjacentHTML("afterbegin", mappedArray.reduce((prevVal, curVal) => prevVal + curVal, ""));
+
+
+                                })
+                            })
+                        .catch(err => { console.log(err) });
+
+                }
+            }
+
+            const params = new URLSearchParams(document.location.search);
+            const dateFilter = params.get("date");
+
+            //shortcut to getElementById
+            const gebi = id => document.getElementById(id);
+            //Create RecentNews object, with url
+            const recentNews = new RecentNews("https://api.jsonbin.io/v3/b/5faab1a348818715939ecd04", Date.parse(dateFilter));
+
+            //Load content from RecentNewsURL
+            recentNews.Download("main");
+
+            //Refresh every 60 seconds
+            setInterval(() => recentNews.Download("main"), 60000);
+
+            //Upload updated news in every 15 seconds back to server
+            // setInterval(() => recentNews.Upload(), 15000);
+
+            // const recentNewsItem = new RecentNewsItem(
+            //     {
+            //       "title": "Мэдээ1",
+            //       "thumb": "https://abc.com/images/1.png",
+            //       "alt":"zurag 1",
+            //       "publishedDate": "2020.10.01 07:00:01",
+            //       "shareCount": 999
+            //     });
+
+            // document.getElementsByTagName("main")[0].innerHTML = recentNewsItem.Render();
+    </script>
+</head>
+
+<body>
+
+    <main id="main"></main>
+
+</body>
+
+</html>

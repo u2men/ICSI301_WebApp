@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./components/num-cart.js" type="module"></script>
+    <script src="./components/num-product-new.js" type="module"></script>
+    <style>
+        article {
+            border: 5px solid red;
+        }
+    </style>
+    <script>
+        function getCount() {
+            const cart = document.getElementById("numCart");
+            document.getElementById("cnt").innerHTML = cart.too;
+        }
+    </script>
+</head>
+
+<body>
+    <article>
+        <h1>Hello</h1>
+    </article>
+    <num-cart id="numCart">хоосон байна</num-cart>
+    <num-product-new>
+        <h4 slot="ner">Baraa</h4>
+        <p slot="tailbar">asdfas <b style="color:green;">asdfasdf</b>dfasdf</p>
+    </num-product-new>
+    <p id="cnt"></p>
+    <button onclick="getCount()">Get count</button>
+    <template id="tmplProduct">
+        <article>
+            <p>
+                <slot name="tailbar"></slot>
+            </p>
+            <slot name="ner"></slot>
+            <img src="" alt="">
+        </article>
+    </template>
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="module" src="./lib/appp.js"></script>
+    <!-- <script type="module" src="./components/num-app.js"></script> -->
+    <script>
+        let app = {};
+
+        function Done(id) {
+            app.complete(id);
+        }
+    </script>
+    <style>
+        :root {
+            --size-0: 0.1rem;
+            --size-1: 0.15rem;
+            --size-2: 0.2rem;
+            --size-3: 0.4rem;
+            --size-4: 0.6rem;
+            --size-5: 0.9rem;
+
+            --margin-default: var(--size-1);
+            --padding-default: var(--size-3);
+            --border-radius-default: var(--size-3);
+        }
+
+        .product,
+        .tag {
+            margin: var(--margin-default);
+            padding: var(--padding-default);
+            border-radius: var(--border-radius-default);
+        }
+
+        .product {
+            width: 40ch;
+            border: 1px solid grey;
+        }
+
+        .tag {
+            width: fit-content;
+            display: inline-block;
+            background-color: blue;
+            color: white;
+        }
+
+        #sags {
+            width: 30vw;
+        }
+    </style>
+</head>
+
+<body>
+    <num-app></num-app>
+    <div id="todoSection"></div>
+</body>
+
+</html>

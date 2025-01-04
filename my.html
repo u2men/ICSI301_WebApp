@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="module" src="./components/my-product.js"></script>
+    <style>
+        :root{
+            --color-primary:blue;
+            --color-main:var(--color-primary);
+        }
+        
+        h3{color:var(--color-primary);}
+        p{color:blue;}
+    </style>
+    <script>
+        function setName(){
+            document.getElementById("myBaraa").baraaName="Бараа";
+        }
+    </script>
+</head>
+<body>
+    <h3>BARAANUUD</h3>
+    <p>asdfasdf</p>
+    <button onclick="setName()">set name</button>
+    <my-product name="Baraa" id="myBaraa">
+        <img slot="desc" src="https://picsum.photos/50">
+        <h3 slot="ner">asdf</h3>
+    </my-product>
+    
+    <template id="myProd">
+        <slot name="ner"></slot>
+        <slot name="desc"></slot>
+    </template>
+</body>
+</html>
