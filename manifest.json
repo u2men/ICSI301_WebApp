@@ -4,7 +4,7 @@
     "background_color": "#561c1c",
     "short_name": "Projects2024",
     "id": "icsi301",
-    "start_url": "https://u2men.github.io/ICSI301_WebApp/index.html",
+    "start_url": "https://u2men.github.io/ICSI301_WebApp/",
     "icons": [
         {
             "src": "./icons/windows11/SmallTile.scale-100.png",
@@ -493,8 +493,8 @@
     ],
     "protocol_handlers": [
         {
-            "protocol": "web+project",
-            "url": "./order.html?token=%s"
+            "protocol": "web+post",
+            "url": "./posts.html?token=%s"
         },
         {
             "protocol": "web+order",
