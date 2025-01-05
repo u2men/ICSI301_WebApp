@@ -58,7 +58,7 @@ self.addEventListener('push', event => {
 
 addEventListener('message', event => {
     console.log("message handled");
-    
+    postMessage("message handled");
     if (event.data === 'showNotification') {
         const title = 'Periodic Notification';
         const options = {
