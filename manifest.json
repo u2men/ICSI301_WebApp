@@ -491,6 +491,11 @@
             "label": "Home screen"
         }
     ],
+    "orientation": "any",
+    "launch_handler": {
+        "client_mode": "navigate-existing"
+    },
+    "display": "standalone",
     "protocol_handlers": [
         {
             "protocol": "web+post",
