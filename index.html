@@ -237,21 +237,29 @@
                 navigator.serviceWorker.controller.postMessage('showNotification');
                 console.log("message sent")
             }
-        }, 5000);
+        }, 30000);
 
-        Navigator.serviceWorker.onmessage = event => {
+        navigator.serviceWorker.onmessage = (event) => {
             console.log('Received a message from service worker: ', event.data);
             if (event.data === 'showNotification') {
                 new Notification('Hello from service worker');
             }
         };
 
-        Navigator.serviceWorker.addEventListener('message', event => {
+        navigator.serviceWorker.addEventListener('message', event => {
             console.log('Received a message from service worker: ', event.data);
-            if (event.data === 'showNotification') {
-                new Notification('Hello from service worker');
-            }
+                const notif = new Notification('Hello from service worker');
+                
         });
+
+        const broadcast = new BroadcastChannel('channel-1');
+        setInterval(() => {
+                broadcast.postMessage('Hello from page');
+            }, 5000);
+
+        broadcast.onmessage = event => {
+            console.log('Received a message from service worker: ', event.data);
+        };
     </script>
 </body>
 

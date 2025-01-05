@@ -56,16 +56,26 @@ self.addEventListener('push', event => {
     );
 });
 
-navigator.serviceWorker.onmessage= function(event) {
-    console.log("message handled");
-    
-    if (event.data === 'showNotification') {
-        const title = 'Periodic Notification';
-        const options = {
-            body: 'This is a periodic notification.',
-            icon: './path/to/icon.png',
-            badge: './path/to/icon.png'
-        };
-        self.registration.showNotification(title, options);
-    }
+const broadcast = new BroadcastChannel('channel-1');
+broadcast.onmessage = (event) => {
+    console.log('message received in service worker');
+    console.log(event.data);
 };
+
+setInterval(() => {
+broadcast.postMessage('showNotification');    
+}, 5000);
+
+// navigator.serviceWorker.onmessage= function(event) {
+//     console.log("message handled");
+    
+//     if (event.data === 'showNotification') {
+//         const title = 'Periodic Notification';
+//         const options = {
+//             body: 'This is a periodic notification.',
+//             icon: './path/to/icon.png',
+//             badge: './path/to/icon.png'
+//         };
+//         self.registration.showNotification(title, options);
+//     }
+// };
