@@ -139,60 +139,13 @@
                 width: calc(100% - var(--gap));
             }
         }
-
-        @media (max-width: 600px) and (orientation: landscape) {
-            .top-menu {
-                flex-direction: column;
-                height: 100%;
-                width: auto;
-                left: 0;
-                top: 0;
-                bottom: 0;
-                background-color: rgba(0, 0, 0, 0.8);
-            }
-
-            .top-menu a {
-                flex-direction: row;
-                font-size: 1rem;
-                padding: 1rem;
-                color: var(--menu-text-color-mobile);
-            }
-
-            .top-menu a span {
-                display: inline;
-            }
-
-            .top-menu-left {
-                position: fixed;
-                left: 0;
-                top: 0;
-                bottom: 0;
-                width: 50%;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-around;
-            }
-
-            .top-menu-right {
-                position: fixed;
-                right: 0;
-                top: 0;
-                bottom: 0;
-                width: 50%;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-around;
-            }
-        }
     </style>
 </head>
 
 <body>
-    <div class="top-menu top-menu-left">
+    <div class="top-menu">
         <a href="./index.html" class="active"><i class="fas fa-home"></i> <span>Home</span></a>
         <a href="./projects.html"><i class="fas fa-project-diagram"></i> <span>Projects</span></a>
-    </div>
-    <div class="top-menu top-menu-right">
         <a href="./addnew.html"><i class="fas fa-plus-circle"></i> <span>Add New</span></a>
         <a href="./cart.html"><i class="fas fa-shopping-cart"></i> <span>Cart</span></a>
         <a href="./profile.html"><i class="fas fa-user"></i> <span>Profile</span></a>
@@ -220,7 +173,7 @@
             connectedCallback() {
                 this.classList.add('article-card');
                 this.innerHTML = `
-                    <img src="${this.getAttribute('img-src')}" alt="${this.getAttribute('title')}" loading="lazy">
+                    <img src="${this.getAttribute('img-src')}" alt="${this.getAttribute('title')}">
                     <h2 class="title">${this.getAttribute('title')}</h2>
                     <p class="description">${this.getAttribute('description')}</p>
                     <p class="rating">Rating: ${this.getAttribute('rating')}</p>
