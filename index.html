@@ -165,6 +165,7 @@
     </div>
     <div class="offline-warning" id="offline-warning">You are offline</div>
     <h1>2024 projects</h1>
+    <button onclick="enableNotification()">Enable notification</button>
     <section>
         <article-card title="Baraa sags" description="Description of Baraa sags" rating="4.5" img-src="https://picsum.photos/200/300"></article-card>
         <article-card title="Book" description="Description of Book" rating="4.0" img-src="https://picsum.photos/200/300?random=2"></article-card>
@@ -221,22 +222,6 @@
             }, 3000);
         });
 
-        // Request permission for push notifications
-        if ('Notification' in window && navigator.serviceWorker) {
-             Notification.requestPermission().then((result) => {
-                if (result === "granted") {
-                    const notification = new Notification("Hello");
-                    navigator.serviceWorker.ready.then((registration) => {
-                        registration.showNotification("Vibration Sample", {
-                            body: "Buzz! Buzz!",
-                            icon: "../images/touch/chrome-touch-icon-192x192.png",
-                            vibrate: [200, 100, 200, 100, 200, 100, 200],
-                            tag: "vibration-sample",
-                        });
-                    });
-                }
-            });
-        }
 
         // Show notification every 1 minute
         setInterval(() => {
@@ -271,6 +256,28 @@
         broadcast.onmessage = event => {
             console.log('Received a message from service worker: ', event.data);
         };
+    </script>
+    <script>
+                // Request permission for push notifications
+                    function enableNotification() {
+                        console.log("enabling notification");
+                        if ('Notification' in window && navigator.serviceWorker) {
+                            Notification.requestPermission().then((result) => {
+                                if (result === "granted") {
+                                    const notification = new Notification("Hello");
+                                    navigator.serviceWorker.ready.then((registration) => {
+                                        registration.showNotification("Vibration Sample", {
+                                            body: "Buzz! Buzz!",
+                                            icon: "../images/touch/chrome-touch-icon-192x192.png",
+                                            vibrate: [200, 100, 200, 100, 200, 100, 200],
+                                            tag: "vibration-sample",
+                                        });
+                                    });
+                                }
+                            });
+                        }
+                    }
+
     </script>
 </body>
 
