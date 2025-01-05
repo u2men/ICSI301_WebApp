@@ -505,5 +505,7 @@
             "protocol": "web+order",
             "url": "./order.html?token=%s"
         }
-    ]
+    ],
+    "dir": "ltr",
+    "lang": "mn"
 }

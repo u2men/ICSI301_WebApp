@@ -23,6 +23,7 @@
             --link-color-hover: #ff3333;
             --menu-text-color: #fff;
             --menu-text-color-mobile: #fff;
+            --warning-color: #ffcc00;
         }
 
         body {
@@ -110,6 +111,18 @@
             text-decoration: none;
         }
 
+        .offline-warning {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background-color: var(--warning-color);
+            color: #000;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            z-index: 1001;
+        }
+
         @media (max-width: 600px) {
             .top-menu {
                 bottom: 0;
@@ -150,6 +163,7 @@
         <a href="./cart.html"><i class="fas fa-shopping-cart"></i> <span>Cart</span></a>
         <a href="./profile.html"><i class="fas fa-user"></i> <span>Profile</span></a>
     </div>
+    <div class="offline-warning" id="offline-warning">You are offline</div>
     <h1>2024 projects</h1>
     <section>
         <article-card title="Baraa sags" description="Description of Baraa sags" rating="4.5" img-src="https://picsum.photos/200/300?random=1"></article-card>
@@ -182,6 +196,28 @@
         }
 
         customElements.define('article-card', ArticleCard);
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./service-worker.js').then(registration => {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, err => {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+
+        window.addEventListener('offline', () => {
+            document.getElementById('offline-warning').style.display = 'block';
+        });
+
+        window.addEventListener('online', () => {
+            const warning = document.getElementById('offline-warning');
+            warning.textContent = 'You are back online';
+            setTimeout(() => {
+                warning.style.display = 'none';
+            }, 3000);
+        });
     </script>
 </body>
 
