@@ -57,8 +57,8 @@ self.addEventListener('push', event => {
 });
 
 addEventListener('message', event => {
-    alert("service worker received message");
     console.log("message handled");
+    
     if (event.data === 'showNotification') {
         const title = 'Periodic Notification';
         const options = {
