@@ -17,6 +17,10 @@
             --padding: 1rem;
             --gap: 2.5rem;
             --border-radius: 8px;
+            --menu-color: #ff4c4c;
+            --menu-color-hover: #ff3333;
+            --link-color: #ff4c4c;
+            --link-color-hover: #ff3333;
         }
 
         body {
@@ -54,22 +58,22 @@
             padding: var(--padding) 2rem;
             font-size: 1.5rem;
             text-decoration: none;
-            color: #fff;
-            background-color: var(--primary-color);
-            border: 1px solid var(--primary-color);
+            color: var(--link-color);
+            border: 1px solid var(--link-color);
             border-radius: var(--border-radius);
-            transition: background-color 0.3s, border-color 0.3s;
+            transition: background-color 0.3s, border-color 0.3s, color 0.3s;
         }
 
         ul a:hover {
-            background-color: var(--primary-color-hover);
-            border-color: var(--primary-color-hover);
+            background-color: var(--link-color-hover);
+            border-color: var(--link-color-hover);
+            color: #fff;
         }
 
         .top-menu {
             display: flex;
             justify-content: space-around;
-            background-color: var(--primary-color);
+            background-color: var(--menu-color);
             padding: var(--padding);
             position: fixed;
             width: 100%;
@@ -87,18 +91,28 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            text-decoration: none;
         }
 
         @media (max-width: 600px) {
             .top-menu {
                 bottom: 0;
                 top: auto;
+                background-color: transparent;
             }
 
             .top-menu a {
                 font-size: 1.5rem;
                 flex-direction: column;
                 gap: 0;
+                color: var(--text-color);
+            }
+
+            .top-menu a.active {
+                background-color: var(--menu-color);
+                color: #fff;
+                border-radius: var(--border-radius);
+                padding: 0.5rem;
             }
 
             .top-menu a span {
@@ -110,7 +124,7 @@
 
 <body>
     <div class="top-menu">
-        <a href="./index.html"><i class="fas fa-home"></i> <span>Home</span></a>
+        <a href="./index.html" class="active"><i class="fas fa-home"></i> <span>Home</span></a>
         <a href="./projects.html"><i class="fas fa-project-diagram"></i> <span>Projects</span></a>
         <a href="./addnew.html"><i class="fas fa-plus-circle"></i> <span>Add New</span></a>
         <a href="./cart.html"><i class="fas fa-shopping-cart"></i> <span>Cart</span></a>
