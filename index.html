@@ -232,6 +232,7 @@
         setInterval(() => {
             console.log("intervalling")
             registeredWorker.active.postMessage("showNotification");
+            alert("msg sent")
             if (navigator.serviceWorker.controller) {
                 navigator.serviceWorker.controller.postMessage('showNotification');
                 console.log("message sent")
