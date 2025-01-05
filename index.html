@@ -5,29 +5,117 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="manifest" href="./manifest.json">
     <link rel="apple-touch-icon" href="path/to/icon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Projects</title>
     <style>
+        :root {
+            --primary-color: #4CAF50;
+            --primary-color-hover: #45a049;
+            --background-color: #f0f0f0;
+            --text-color: #333;
+            --padding: 1rem;
+            --gap: 2.5rem;
+            --border-radius: 8px;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 2rem;
+            color: var(--primary-color);
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
         ul {
             display: flex;
             flex-flow: row wrap;
-            gap: 2.5rem;
+            gap: var(--gap);
+            padding: 0;
+        }
 
-            & li {
-                list-style-type: none;
+        ul li {
+            list-style-type: none;
+        }
+
+        ul a {
+            padding: var(--padding) 2rem;
+            font-size: 1.5rem;
+            text-decoration: none;
+            color: #fff;
+            background-color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            border-radius: var(--border-radius);
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        ul a:hover {
+            background-color: var(--primary-color-hover);
+            border-color: var(--primary-color-hover);
+        }
+
+        .top-menu {
+            display: flex;
+            justify-content: space-around;
+            background-color: var(--primary-color);
+            padding: var(--padding);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .top-menu a {
+            color: #fff;
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            border: none;
+            background: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        @media (max-width: 600px) {
+            .top-menu {
+                bottom: 0;
+                top: auto;
             }
 
-            & a {
-                padding: 1rem;
-                font-size: 2rem;
-                text-decoration: none;
-                border: 1px solid grey;
-                border-radius: 8px;
+            .top-menu a {
+                font-size: 1.5rem;
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .top-menu a span {
+                display: none;
             }
         }
     </style>
 </head>
 
 <body>
+    <div class="top-menu">
+        <a href="./index.html"><i class="fas fa-home"></i> <span>Home</span></a>
+        <a href="./projects.html"><i class="fas fa-project-diagram"></i> <span>Projects</span></a>
+        <a href="./addnew.html"><i class="fas fa-plus-circle"></i> <span>Add New</span></a>
+        <a href="./cart.html"><i class="fas fa-shopping-cart"></i> <span>Cart</span></a>
+        <a href="./profile.html"><i class="fas fa-user"></i> <span>Profile</span></a>
+    </div>
     <h1>2024 projects</h1>
     <nav>
         <ul>
