@@ -37,37 +37,51 @@
             color: var(--primary-color);
         }
 
-        nav {
-            display: flex;
-            justify-content: center;
-            margin-top: 2rem;
-        }
-
-        ul {
+        section {
             display: flex;
             flex-flow: row wrap;
             gap: var(--gap);
-            padding: 0;
+            justify-content: center;
+            padding: var(--padding);
         }
 
-        ul li {
-            list-style-type: none;
-        }
-
-        ul a {
-            padding: var(--padding) 2rem;
-            font-size: 1.5rem;
+        article-card {
+            display: block;
+            padding: var(--padding);
+            border-radius: var(--border-radius);
+            transition: background-color 0.6s, border-color 0.3s, color 0.3s;
+            background-color: transparent;
             text-decoration: none;
             color: var(--link-color);
-            border: 1px solid var(--link-color);
-            border-radius: var(--border-radius);
-            transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+            width: calc(33.333% - var(--gap));
+            box-sizing: border-box;
         }
 
-        ul a:hover {
+        article-card:hover {
             background-color: var(--link-color-hover);
-            border-color: var(--link-color-hover);
             color: #fff;
+        }
+
+        article-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: var(--border-radius);
+        }
+
+        article-card .title {
+            font-size: 1.5rem;
+            margin: 0.5rem 0;
+        }
+
+        article-card .description {
+            font-size: 1rem;
+            margin: 0.5rem 0;
+        }
+
+        article-card .rating {
+            font-size: 1rem;
+            color: var(--primary-color);
         }
 
         .top-menu {
@@ -118,6 +132,10 @@
             .top-menu a span {
                 display: none;
             }
+
+            article-card {
+                width: calc(100% - var(--gap));
+            }
         }
     </style>
 </head>
@@ -131,52 +149,38 @@
         <a href="./profile.html"><i class="fas fa-user"></i> <span>Profile</span></a>
     </div>
     <h1>2024 projects</h1>
-    <nav>
-        <ul>
-            <li>
-                <a href="./baraasags.html">Baraa sags</a>
-            </li>
-            <li>
-                <a href="./book.html">Book</a>
-            </li>
-            <li>
-                <a href="./cart.html">Carts</a>
-            </li>
-            <li>
-                <a href="./comment.html">Comment</a>
-            </li>
-            <li>
-                <a href="./my.html">My</a>
-            </li>
-            <li>
-                <a href="./order.html">Order</a>
-            </li>
-            <li>
-                <a href="./posts.html">Posts</a>
-            </li>
-            <li>
-                <a href="./product.html">Product</a>
-            </li>
-            <li>
-                <a href="./products.html">Products</a>
-            </li>
-            <li>
-                <a href="./recentnews.html">Recentnews</a>
-            </li>
-            <li>
-                <a href="./recipies.html">Recipies</a>
-            </li>
-            <li>
-                <a href="./sagstaibaraa.html">Sagstai baraa</a>
-            </li>
-            <li>
-                <a href="./todo.html">Todo</a>
-            </li>
-            <li>
-                <a href="./users.html">Users</a>
-            </li>
-        </ul>
-    </nav>
+    <section>
+        <article-card title="Baraa sags" description="Description of Baraa sags" rating="4.5" img-src="https://picsum.photos/200/300?random=1"></article-card>
+        <article-card title="Book" description="Description of Book" rating="4.0" img-src="https://picsum.photos/200/300?random=2"></article-card>
+        <article-card title="Carts" description="Description of Carts" rating="3.5" img-src="https://picsum.photos/200/300?random=3"></article-card>
+        <article-card title="Comment" description="Description of Comment" rating="4.2" img-src="https://picsum.photos/200/300?random=4"></article-card>
+        <article-card title="My" description="Description of My" rating="4.8" img-src="https://picsum.photos/200/300?random=5"></article-card>
+        <article-card title="Order" description="Description of Order" rating="4.1" img-src="https://picsum.photos/200/300?random=6"></article-card>
+        <article-card title="Posts" description="Description of Posts" rating="4.3" img-src="https://picsum.photos/200/300?random=7"></article-card>
+        <article-card title="Product" description="Description of Product" rating="4.7" img-src="https://picsum.photos/200/300?random=8"></article-card>
+        <article-card title="Products" description="Description of Products" rating="4.6" img-src="https://picsum.photos/200/300?random=9"></article-card>
+        <article-card title="Recentnews" description="Description of Recentnews" rating="4.4" img-src="https://picsum.photos/200/300?random=10"></article-card>
+        <article-card title="Recipies" description="Description of Recipies" rating="4.9" img-src="https://picsum.photos/200/300?random=11"></article-card>
+        <article-card title="Sagstai baraa" description="Description of Sagstai baraa" rating="4.0" img-src="https://picsum.photos/200/300?random=12"></article-card>
+        <article-card title="Todo" description="Description of Todo" rating="3.8" img-src="https://picsum.photos/200/300?random=13"></article-card>
+        <article-card title="Users" description="Description of Users" rating="4.5" img-src="https://picsum.photos/200/300?random=14"></article-card>
+    </section>
+
+    <script>
+        class ArticleCard extends HTMLElement {
+            connectedCallback() {
+                this.classList.add('article-card');
+                this.innerHTML = `
+                    <img src="${this.getAttribute('img-src')}" alt="${this.getAttribute('title')}">
+                    <h2 class="title">${this.getAttribute('title')}</h2>
+                    <p class="description">${this.getAttribute('description')}</p>
+                    <p class="rating">Rating: ${this.getAttribute('rating')}</p>
+                `;
+            }
+        }
+
+        customElements.define('article-card', ArticleCard);
+    </script>
 </body>
 
 </html>
