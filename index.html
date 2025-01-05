@@ -21,6 +21,8 @@
             --menu-color-hover: #ff3333;
             --link-color: #ff4c4c;
             --link-color-hover: #ff3333;
+            --menu-text-color: #fff;
+            --menu-text-color-mobile: #fff;
         }
 
         body {
@@ -97,7 +99,7 @@
         }
 
         .top-menu a {
-            color: #fff;
+            color: var(--menu-text-color);
             font-size: 1rem;
             padding: 0.5rem 1rem;
             border: none;
@@ -112,14 +114,14 @@
             .top-menu {
                 bottom: 0;
                 top: auto;
-                background-color: transparent;
+                background-color: rgba(0, 0, 0, 0.8);
             }
 
             .top-menu a {
                 font-size: 1.5rem;
                 flex-direction: column;
                 gap: 0;
-                color: var(--text-color);
+                color: var(--menu-text-color-mobile);
             }
 
             .top-menu a.active {
