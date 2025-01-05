@@ -56,9 +56,9 @@ self.addEventListener('push', event => {
     );
 });
 
-addEventListener('message', event => {
+navigator.serviceWorker.onmessage= function(event) {
     console.log("message handled");
-    postMessage("message handled");
+    
     if (event.data === 'showNotification') {
         const title = 'Periodic Notification';
         const options = {
@@ -68,4 +68,4 @@ addEventListener('message', event => {
         };
         self.registration.showNotification(title, options);
     }
-});
+};

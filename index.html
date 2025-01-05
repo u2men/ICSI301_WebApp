@@ -239,6 +239,13 @@
             }
         }, 5000);
 
+        Navigator.serviceWorker.onmessage = event => {
+            console.log('Received a message from service worker: ', event.data);
+            if (event.data === 'showNotification') {
+                new Notification('Hello from service worker');
+            }
+        };
+
         Navigator.serviceWorker.addEventListener('message', event => {
             console.log('Received a message from service worker: ', event.data);
             if (event.data === 'showNotification') {
