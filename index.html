@@ -223,8 +223,18 @@
 
         // Request permission for push notifications
         if ('Notification' in window && navigator.serviceWorker) {
-            Notification.requestPermission(status => {
-                console.log('Notification permission status:', status);
+             Notification.requestPermission().then((result) => {
+                if (result === "granted") {
+                    const notification = new Notification("Hello");
+                    navigator.serviceWorker.ready.then((registration) => {
+                        registration.showNotification("Vibration Sample", {
+                            body: "Buzz! Buzz!",
+                            icon: "../images/touch/chrome-touch-icon-192x192.png",
+                            vibrate: [200, 100, 200, 100, 200, 100, 200],
+                            tag: "vibration-sample",
+                        });
+                    });
+                }
             });
         }
 
@@ -241,6 +251,7 @@
 
         navigator.serviceWorker.onmessage = (event) => {
             console.log('Received a message from service worker: ', event.data);
+            const notification = new Notification('Received a message from service worker: ' +event.data);
             if (event.data === 'showNotification') {
                 new Notification('Hello from service worker');
             }
