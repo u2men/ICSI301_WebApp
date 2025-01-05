@@ -196,10 +196,12 @@
         }
 
         customElements.define('article-card', ArticleCard);
-
+        let registeredWorker;
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./service-worker.js').then(registration => {
+                navigator.serviceWorker.register('./service-worker.js')
+                .then(registration => {
+                    registeredWorker = registration;
                     console.log('ServiceWorker registration successful with scope: ', registration.scope);
                 }, err => {
                     console.log('ServiceWorker registration failed: ', err);
@@ -218,6 +220,24 @@
                 warning.style.display = 'none';
             }, 3000);
         });
+
+        // Request permission for push notifications
+        if ('Notification' in window && navigator.serviceWorker) {
+            Notification.requestPermission(status => {
+                console.log('Notification permission status:', status);
+            });
+        }
+
+        // Show notification every 1 minute
+        setInterval(() => {
+            console.log("intervalling")
+            registeredWorker.active.postMessage("showNotification");
+            if (navigator.serviceWorker.controller) {
+                navigator.serviceWorker.controller.postMessage('showNotification');
+                console.log("message sent")
+            }
+        }, 5000);
+
     </script>
 </body>
 
